@@ -1,0 +1,32 @@
+services:
+    feature_toggle.configuration_bag:
+        class: Cogi\FeatureToggleBundle\Configuration\ConfigurationBag
+        public: false
+        arguments:
+            - @service_container
+
+    feature_toggle.condition.likelihood:
+        class: Cogi\FeatureToggleBundle\Condition\LikelihoodCondition
+        public: false
+
+    feature_toggle.condition.users:
+        class: Cogi\FeatureToggleBundle\Condition\UsersCondition
+        public: false
+        arguments:
+            - @security.context
+
+    toggler:
+        class: Cogi\FeatureToggleBundle\Service\Toggler
+        arguments:
+            - @feature_toggle.configuration_bag
+            - @session
+        calls:
+            - [ registerCondition, [@feature_toggle.condition.likelihood] ]
+            - [ registerCondition, [@feature_toggle.condition.users] ]
+
+    toggler_twig_extension:
+        class: Cogi\FeatureToggleBundle\Twig\TogglerExtension
+        arguments:
+            - @toggler
+        tags:
+            - { name: twig.extension }
