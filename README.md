@@ -49,7 +49,12 @@ Toggle a feature from twig:
   {% endif %}
 ```
 
-# Known issue
+# Tips
+
+* If you want enable a feature every time it's requested set likelihood to 100
+* If you want disable a feature every time it's requested set likelihood to 0
+
+# Known issues
 
 * Request wide toggling may give different result when there are more than one "isEnabled" method call for one feature across the same request
     * Eg. Likelihood is 50. It may happend than on the backed isEnabled('the_feature') would return true, and the next call false
