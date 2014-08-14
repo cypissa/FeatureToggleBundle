@@ -18,6 +18,7 @@ Install the bundle :)
 
 Add in configuration file:
 
+```
   cogi_feature_toggle:
       features:
           feature_we_want_toggle_name:
@@ -28,24 +29,28 @@ Add in configuration file:
                   - 'user2'
           another_feature:
               # ...
+```
 
 ## Step 3
 
 Toggle a feature from php:
 
+```
   if ($serviceContainer->get('toggler')->isEnabled('feature_we_want_toggle_name')) {
     // feature based code
   }
+```
 
 Toggle a feature from twig:
 
+```
   {% if is_feature_enabled('feature_we_want_toggle_name') %}
     {# feature based code #}
   {% endif %}
-
+```
 
 # Known issue
 
 * Request wide toggling may give different result when there are more than one "isEnabled" method call for one feature across the same request
-** Eg. Likelihood is 50. It may happend than on the backed isEnabled('the_feature') would return true, and the next call false
-** The problem won't happend if "throughout_session" is set to true
+    * Eg. Likelihood is 50. It may happend than on the backed isEnabled('the_feature') would return true, and the next call false
+    * The problem won't happend if "throughout_session" is set to true
