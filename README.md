@@ -59,3 +59,4 @@ Toggle a feature from twig:
 * Request wide toggling may give different result when there are more than one "isEnabled" method call for one feature across the same request
     * Eg. Likelihood is 50. It may happend than on the backed isEnabled('the_feature') would return true, and the next call false
     * The problem won't happend if "throughout_session" is set to true
+    * A little refactor is needed
